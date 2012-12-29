@@ -1,20 +1,30 @@
 #!/usr/bin/env python
 # -*-coding:Utf-8 -*
 import sys
-import os.path
-import glob
+from comGetter import *
 
-def getFiles(dir):
-    """ Liste <dir> et renvoie la liste des .dasm qu'il contient (récursif) """
-    liste = list()    # contient la liste les fichiers .dasm
-    for file in glob.glob(dir + "/*"):
-        if os.path.isdir(file):
-            liste += getFiles(file)
-        elif os.path.splitext(file)[-1] == ".dasm":
-            liste.append(file)
-    return liste
 
+def printHelp():
+    print("help !")
+
+
+if len(sys.argv) < 2:
+    print("argument manquant")
+    sys.exit(1)
+
+arg = sys.argv[1]
+
+if arg == "--help" or arg == "-h":
+    printHelp()
+    sys.exit(0)
+elif not os.path.exists(arg):
+    print("Dossier en argument introuvable")
+    sys.exit(1)
+    
 
 rootDir = sys.argv[1]
 listeFiles = getFiles(rootDir)
-print(listeFiles)
+commentaires = getComs(listeFiles)
+print(commentaires)
+for line in commentaires:
+    print(line)

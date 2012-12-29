@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*-coding:Utf-8 -*
 import sys
+from fonction import *
 from comGetter import *
 
 
@@ -23,8 +24,28 @@ elif not os.path.exists(arg):
     
 
 rootDir = sys.argv[1]
+print("Création de la liste des fichiers…")
 listeFiles = getFiles(rootDir)
+print("Lecture des fichiers…")
 commentaires = getComs(listeFiles)
-print(commentaires)
-for line in commentaires:
-    print(line)
+print("Créaction des objets…")
+listeFonctions = Fonction.match(commentaires)
+
+print("Écriture du fichier…")
+os.remove("test.html")
+with open("test.html", "a") as file:
+    html = "<!DOCTYPE HTML>"
+    html += """<html>
+               <head>
+                 <meta charset=\"utf-8\" />
+                 <title>Documentation de FrOSt</title>
+               </head>
+               <body>"""
+    for fonction in listeFonctions:
+        html += fonction.getHTML()
+        
+    html += "</body></html>"
+    file.write(html)
+
+print("Fichier généré !")
+

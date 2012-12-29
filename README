@@ -1,0 +1,6 @@
+Format des commentaires :
+
+;;;FONCTION truc
+;;;DESCRIPTION machin
+;;;ARG A adresse de départ
+;;;ARG PUSH machin

@@ -32,7 +32,9 @@ print("Créaction des objets…")
 listeFonctions = Fonction.match(commentaires)
 
 print("Écriture du fichier…")
-os.remove("test.html")
+if os.path.exists("test.html"):
+    os.remove("test.html")
+    
 with open("test.html", "a") as file:
     html = "<!DOCTYPE HTML>"
     html += """<html>

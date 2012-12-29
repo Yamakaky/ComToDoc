@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*-coding:Utf-8 -*
+# -*- coding: utf-8 -*-
 import sys
 from fonction import *
 from comGetter import *
@@ -24,14 +24,14 @@ elif not os.path.exists(arg):
     
 
 rootDir = sys.argv[1]
-print("Création de la liste des fichiers…")
+print("Création de la liste des fichiers...")
 listeFiles = getFiles(rootDir)
-print("Lecture des fichiers…")
+print("Lecture des fichiers...")
 commentaires = getComs(listeFiles)
-print("Créaction des objets…")
+print("Créaction des objets...")
 listeFonctions = Fonction.match(commentaires)
 
-print("Écriture du fichier…")
+print("Écriture du fichier...")
 if os.path.exists("test.html"):
     os.remove("test.html")
     

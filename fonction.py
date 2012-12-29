@@ -1,4 +1,5 @@
-# -*-coding:Utf-8 -*
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 class Fonction:
     """ Cette classe regroupe les commentaires d'une fonction en un

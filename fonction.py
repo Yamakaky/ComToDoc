@@ -36,14 +36,6 @@ class Fonction:
         
         for line in commentaires:
 
-            for var in listeFonctions:
-                print(var)
-            print("-")
-            if not current is None:
-                print(current)
-            print("-----")
-            
-
             if line[:8] == "FONCTION":
                 if not current is None:
                     listeFonctions.append(current)
@@ -56,18 +48,7 @@ class Fonction:
                 liste = str.split(line[4:], " ", 1)
                 current.m_args[liste[0]] = liste[1]
 
-        for var in listeFonctions:
-            print(var)
         if not current is None:
             listeFonctions.append(current)
 
-        print("<<<<>>>>>")
-        for var in listeFonctions:
-            print(var)
         return listeFonctions
-
-    def __repr__(self):
-        s = ""
-        for i in self.m_args.keys():
-            s += self.m_args[i] + ","
-        return self.m_nom + " : " + s

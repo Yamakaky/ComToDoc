@@ -13,7 +13,7 @@ class Fonction:
         """ args est un tableau associatif """
         self.m_nom = nom
         self.m_description = description
-        if args is None:
+        if not args:   # args vide
             args = dict()
         self.m_args = args
 
@@ -23,9 +23,9 @@ class Fonction:
         html += "<h1>" + self.m_nom + "</h1>"
         html += "<p>" + self.m_description + "</p>"
         html += "<dl>"
-        for key in self.m_args:
+        for key, value in self.m_args.items():
             html += "<dt>" + key + "</dt>"
-            html += "<dd>" + self.m_args[key] + "</dd>"
+            html += "<dd>" + value + "</dd>"
         html += "</dl>"
         html += "</section>"
         return html
@@ -37,7 +37,7 @@ class Fonction:
         for line in commentaires:
 
             if line[:8] == "FONCTION":
-                if not current is None:
+                if current: # non None
                     listeFonctions.append(current)
                 current = Fonction(nom=line[9:])
 
@@ -48,7 +48,7 @@ class Fonction:
                 liste = str.split(line[4:], " ", 1)
                 current.m_args[liste[0]] = liste[1]
 
-        if not current is None:
+        if current: #not None
             listeFonctions.append(current)
 
         return listeFonctions

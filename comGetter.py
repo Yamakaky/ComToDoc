@@ -12,9 +12,7 @@ def getFiles(dir):
             liste += getFiles(file)
         elif os.path.splitext(file)[-1] == ".dasm":
             liste.append(file)
-
     return liste
-
 
 def getComs(fileList):
     """ Retourne la liste des lignes utilisées pour la doc """
@@ -22,7 +20,7 @@ def getComs(fileList):
     
     for file in fileList:
         for line in open(file, "r"):
-            if len(line) > 3 and line[0:3] == ";;;": 
-                comList.append(line[3:len(line)].replace("\n", ""))
+            if len(line) > 3 and line[:3] == ";;;": 
+                comList.append(line[3:].replace("\n", ""))  # .replace pour le \n final
 
     return comList

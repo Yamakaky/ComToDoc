@@ -50,4 +50,3 @@ with open("test.html", "a") as file:
     file.write(html)
 
 print("Fichier généré !")
-

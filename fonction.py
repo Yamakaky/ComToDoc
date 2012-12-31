@@ -17,19 +17,6 @@ class Fonction:
             args = dict()
         self.m_args = args
 
-    def getHTML(self):
-        """ Retourne un string en HTML de l'objet """
-        html = "<section>"
-        html += "<h1>" + self.m_nom + "</h1>"
-        html += "<p>" + self.m_description + "</p>"
-        html += "<dl>"
-        for key, value in self.m_args.items():
-            html += "<dt>" + key + "</dt>"
-            html += "<dd>" + value + "</dd>"
-        html += "</dl>"
-        html += "</section>"
-        return html
-
     def match(commentaires):
         listeFonctions = list()
         current = None

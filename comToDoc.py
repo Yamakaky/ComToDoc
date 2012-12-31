@@ -3,6 +3,7 @@
 import sys
 from fonction import *
 from comGetter import *
+import htmlGen
 
 
 def printHelp():
@@ -34,20 +35,7 @@ def main():
     print("Écriture du fichier...")
     if os.path.exists("test.html"):
         os.remove("test.html")
-
-    with open("test.html", "a") as file:
-        html = "<!DOCTYPE HTML>"
-        html += """<html>
-                   <head>
-                     <meta charset=\"utf-8\" />
-                     <title>Documentation de FrOSt</title>
-                   </head>
-                   <body>"""
-        for fonction in listeFonctions:
-            html += fonction.getHTML()
-
-        html += "</body></html>"
-        file.write(html)
+    htmlGen.gen(listeFonctions)
 
     print("Fichier généré !")
     return 0

@@ -19,8 +19,8 @@ def getComs(fileList):
     comList = list()
     
     for file in fileList:
-        for line in open(file, "r"):
+        for line in open(file, "r").read().splitlines(): # sans les \n
             if len(line) > 3 and line[:3] == ";;;": 
-                comList.append(line[3:].replace("\n", ""))  # .replace pour le \n final
+                comList.append(line[3:])
 
     return comList

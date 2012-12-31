@@ -1,6 +1,14 @@
-Format des commentaires :
+Dépendances : Python ^^. Idéalement la dernière version, même si je
+	      n'utilise pas les dernières fonctionnalités.
 
-;;;FONCTION truc
-;;;DESCRIPTION machin
-;;;ARG A adresse de départ
-;;;ARG PUSH machin
+Utilisation : ./comToDoc.py <dossier du soft dasm>
+
+Format des commentaires :
+       ;;;FONCTION ma_super_fonction
+       ;;;DESCRIPTION Un truc vraiment super
+       ;;;ARG A adresse de départ
+       ;;;ARG PUSH machin
+
+;;;FONCTION marque la fin de la fonction précédente et le début de la
+suivante. L'ordre des autre section importe peu (sauf pour les args
+dont l'ordre sera conservé).

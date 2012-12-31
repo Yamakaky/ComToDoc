@@ -3,8 +3,9 @@
 
 """Génère un fichier HTML à partir des objets Fonction"""
 
-import xml.etree.ElementTree as ET
+import xml.etree.cElementTree as ET
 from xml.etree.ElementTree import SubElement as sub_e
+import os
 
 
 def gen(liste_Fonction):
@@ -43,7 +44,31 @@ def gen(liste_Fonction):
 
             dd = sub_e(dl, "dd")
             dd.text = value
-
+            
+    indent(racine)
     
     tree = ET.ElementTree(racine)
-    tree.write("doc.html")
+    tree.write("tmp")
+    with open("tmp") as tmp:
+        with open("doc.html", "w") as file:
+            file.write("<!DOCTYPE html>\n")
+            for line in tmp:
+                file.write(line)
+    os.remove("tmp")
+    # J'ai pas réussit à faire plus propre
+
+    
+def indent(elem, level=0):
+    i = "\n" + level*"    "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "    "
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i

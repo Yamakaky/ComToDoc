@@ -18,14 +18,14 @@ class Fonction:
         self.args = args
 
     def match(commentaires):
-        listeFonctions = list()
+        liste_fonctions = list()
         current = None
         
         for line in commentaires:
 
             if line[:8] == "FONCTION":
                 if current: # non None
-                    listeFonctions.append(current)
+                    liste_fonctions.append(current)
                 current = Fonction(nom=line[9:])
 
             elif line[:11] == "DESCRIPTION":
@@ -36,6 +36,6 @@ class Fonction:
                 current.args[liste[0]] = liste[1]
 
         if current: #not None
-            listeFonctions.append(current)
+            liste_fonctions.append(current)
 
-        return listeFonctions
+        return liste_fonctions

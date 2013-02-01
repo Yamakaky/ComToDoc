@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
-from fonction import *
+from fonction import Fonction
 import comgetter
 import htmlgen
 import getopt
@@ -12,15 +12,15 @@ output = "doc.html"
 version = "0.1"
 name = "comToDoc"
 
-def printUsage():
+def print_usage():
     print("help !")
 
-def printVersion():
+def print_version():
     global name
     global version
     print(name + " version " + version)
     
-def parseArgs(args):
+def parse_args(args):
     try:
         opts, args = getopt.getopt(args, "ho:v", ["help", "output=", "version"])
     except getopt.GetoptError as err:
@@ -30,13 +30,13 @@ def parseArgs(args):
     else:
         for o, a in opts:
             if o == "-h" or o == "--help":
-                printUsage()
+                print_usage()
                 sys.exit()
             elif o == "-o" or o == "--output":
                 global output
                 output = a
             elif o == "-v" or o == "--version":
-                printVersion()
+                print_version()
                 sys.exit()
 
         if len(args) < 1:
@@ -50,20 +50,20 @@ def parseArgs(args):
 
 def main():
     # Gestion des arguments de la ligne de commande
-    rootDir = parseArgs(sys.argv[1:])
+    root_dir = parse_args(sys.argv[1:])
 
     print("Création de la liste des fichiers...")
-    listeFiles = comgetter.getFiles(rootDir)
+    liste_files = comgetter.get_files(root_dir)
     print("Lecture des fichiers...")
-    commentaires = comgetter.getComs(listeFiles)
+    commentaires = comgetter.get_coms(liste_files)
     print("Créaction des objets...")
-    listeFonctions = Fonction.match(commentaires)
+    liste_fonctions = Fonction.match(commentaires)
 
     print("Écriture du fichier...")
     global output
     if os.path.exists(output):
         os.remove(output)
-    htmlgen.gen(listeFonctions, output)
+    htmlgen.gen(liste_fonctions, output)
 
     print("Fichier généré !")
     return 0

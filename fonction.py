@@ -4,18 +4,18 @@
 class Fonction:
     """ Cette classe regroupe les commentaires d'une fonction en un
     objet.
-    m_nom
-    m_description
-    m_args : tableau associatif 'registre : description'
+    nom
+    description
+    args : tableau associatif 'registre : description'
     """
     
     def __init__(self, nom='', description='', args=None):
         """ args est un tableau associatif """
-        self.m_nom = nom
-        self.m_description = description
+        self.nom = nom
+        self.description = description
         if not args:   # args vide
             args = dict()
-        self.m_args = args
+        self.args = args
 
     def match(commentaires):
         listeFonctions = list()
@@ -29,11 +29,11 @@ class Fonction:
                 current = Fonction(nom=line[9:])
 
             elif line[:11] == "DESCRIPTION":
-                current.m_description = line[12:]
+                current.description = line[12:]
 
             elif line[:3] == "ARG":
                 liste = str.split(line[4:], " ", 1)
-                current.m_args[liste[0]] = liste[1]
+                current.args[liste[0]] = liste[1]
 
         if current: #not None
             listeFonctions.append(current)

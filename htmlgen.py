@@ -35,19 +35,27 @@ def gen(liste_Fonction, file):
     h1.text = "Documentation"
 
 
+    nav = sub_e(body, "nav")
+    for f in liste_Fonction:
+        li = sub_e(nav, "li")
+        a = sub_e(li, "a")
+        a.set("href", "#" + f.nom)
+        a.text = f.nom
+
+
     section = sub_e(body, "section")
 
     for f in liste_Fonction:
         article = sub_e(section, "article")
         
         h = sub_e(article, "h1")
-        h.text = f.m_nom
+        h.text = f.nom
 
         p = sub_e(article, "p")
-        p.text = f.m_description
+        p.text = f.description
 
         dl = sub_e(article, "dl")
-        for key, value in f.m_args.items():
+        for key, value in f.args.items():
             dt = sub_e(dl, "dt")
             dt.text = key
 

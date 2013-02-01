@@ -8,7 +8,7 @@ from xml.etree.ElementTree import SubElement as sub_e
 import os
 
 
-def gen(liste_Fonction):
+def gen(liste_Fonction, file):
     """Prend en argument la liste des Fonction et génère le fichier html"""
     racine = ET.Element("html")
 
@@ -21,23 +21,32 @@ def gen(liste_Fonction):
     css = sub_e(head, "link")
     css.set("rel", "stylesheet")
     css.set("href", "style.css")
+    css.set("type", "text/css")
     
     title = sub_e(head, "title")
-    title.text = "Une super documentation !"
+    title.text = "Documentation"
 
     
     body = sub_e(racine, "body")
 
+    
+    h1 = sub_e(sub_e(body, "header"),
+               "h1")
+    h1.text = "Documentation"
+
+
+    section = sub_e(body, "section")
+
     for f in liste_Fonction:
-        section = sub_e(body, "section")
+        article = sub_e(section, "article")
         
-        h = sub_e(section, "h1")
+        h = sub_e(article, "h1")
         h.text = f.m_nom
 
-        p = sub_e(section, "p")
+        p = sub_e(article, "p")
         p.text = f.m_description
 
-        dl = sub_e(section, "dl")
+        dl = sub_e(article, "dl")
         for key, value in f.m_args.items():
             dt = sub_e(dl, "dt")
             dt.text = key
@@ -50,7 +59,7 @@ def gen(liste_Fonction):
     tree = ET.ElementTree(racine)
     tree.write("tmp")
     with open("tmp") as tmp:
-        with open("doc.html", "w") as file:
+        with open(file, "w") as file:
             file.write("<!DOCTYPE html>\n")
             for line in tmp:
                 file.write(line)
@@ -59,6 +68,7 @@ def gen(liste_Fonction):
 
     
 def indent(elem, level=0):
+    """Fonction originale ici -> http://effbot.org/zone/element-lib.htm"""
     i = "\n" + level*"    "
     if len(elem):
         if not elem.text or not elem.text.strip():

@@ -7,7 +7,6 @@ import xml.etree.cElementTree as ET
 from xml.etree.ElementTree import SubElement as sub_e
 import os
 
-
 def gen(liste_Fonction, file):
     """Prend en argument la liste des Fonction et génère le fichier html"""
     racine = ET.Element("html")
@@ -73,7 +72,6 @@ def gen(liste_Fonction, file):
                 file.write(line)
     os.remove("tmp")
     # J'ai pas réussit à faire plus propre
-
     
 def indent(elem, level=0):
     """Fonction originale ici -> http://effbot.org/zone/element-lib.htm"""

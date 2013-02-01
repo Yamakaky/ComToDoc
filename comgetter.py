@@ -12,6 +12,8 @@ def get_files(dir):
             liste += get_files(file)
         elif os.path.splitext(file)[-1] == ".dasm":
             liste.append(file)
+
+    assert len(liste) is not 0, "Le dossier ne contient pas de fichiers .dasm"
     return liste
 
 def get_coms(file_list):
@@ -23,4 +25,5 @@ def get_coms(file_list):
             if len(line) > 3 and line[:3] == ";;;": 
                 com_list.append(line[3:])
 
+    assert len(com_liste) is not 0, "Aucun commentaire détecté"
     return com_list

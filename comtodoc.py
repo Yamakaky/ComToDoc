@@ -7,7 +7,6 @@ import htmlgen
 import getopt
 import os
 
-
 output = "doc.html"
 version = "0.1"
 name = "comToDoc"

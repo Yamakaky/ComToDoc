@@ -12,14 +12,23 @@ version = "0.1"
 name = "comToDoc"
 
 def print_usage():
+    """Affiche le manuel du soft."""
     print("help !")
 
 def print_version():
+    """Affiche le nom et la version du soft."""
     global name
     global version
     print(name + " version " + version)
     
 def parse_args(args):
+    """Parse et gère les arguments en ligne de commande.
+    Argument :
+    -- args : liste des arguments passés au programme (typiquement : sys.argv(1:))
+
+    Retour :
+    -- args[0], le fichier/dossier contenant les sources dasm.
+    """
     try:
         opts, args = getopt.getopt(args, "ho:v", ["help", "output=", "version"])
     except getopt.GetoptError as err:

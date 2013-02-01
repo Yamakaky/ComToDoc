@@ -8,7 +8,7 @@ import getopt
 import os
 
 
-output = "test.html"
+output = "doc.html"
 version = "0.1"
 name = "comToDoc"
 
@@ -33,6 +33,7 @@ def parseArgs(args):
                 printUsage()
                 sys.exit()
             elif o == "-o" or o == "--output":
+                global output
                 output = a
             elif o == "-v" or o == "--version":
                 printVersion()

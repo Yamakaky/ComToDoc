@@ -1,25 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
+import os
+import argparse
+
 from fonction import Fonction
 import comgetter
 import htmlgen
-import getopt
-import os
 
 output = "doc.html"
 version = "0.1"
 name = "comToDoc"
-
-def print_usage():
-    """Affiche le manuel du soft."""
-    print("help !")
 
 def print_version():
     """Affiche le nom et la version du soft."""
     global name
     global version
     print(name + " version " + version)
+    sys.exit(0)
     
 def parse_args(args):
     """Parse et gère les arguments en ligne de commande.
@@ -29,33 +27,22 @@ def parse_args(args):
     Retour :
     -- args[0], le fichier/dossier contenant les sources dasm.
     """
-    try:
-        opts, args = getopt.getopt(args, "ho:v", ["help", "output=", "version"])
-    except getopt.GetoptError as err:
-        print(err)
-        usage()
-        sys.exit(1)
-    else:
-        for o, a in opts:
-            if o == "-h" or o == "--help":
-                print_usage()
-                sys.exit()
-            elif o == "-o" or o == "--output":
-                global output
-                output = a
-            elif o == "-v" or o == "--version":
-                print_version()
-                sys.exit()
+    global output
 
-        if len(args) < 1:
-            print("Il faut spécifier un nom de dossier")
-            sys.exit(1)
-        elif os.path.exists(args[0]):
-            return args[0]
-        else:
-            print("Il faut spécifier un nom de dossier valable")
-            sys.exit(1)
+    parser = argparse.ArgumentParser(description="Génère un doc HTML à partir d'un programme en DASM")
+    
+    parser.add_argument("-o", "--output", dest="output", help="La documentation sera écrite dans FILE", metavar="FILE")
+    parser.add_argument("-v", "--version", action="store_true", dest="bool_print_version", default=False, help="Affiche la version du soft")
+    parser.add_argument("dir", nargs=1, metavar="DIR", help="Le dossier contenant les sources DASM")
+    
+    args = vars(parser.parse_args())
 
+    for key, value in args:
+        if key == bool_print_version and value is True:
+            print_version()
+
+    return args[dir]
+    
 def main():
     # Gestion des arguments de la ligne de commande
     root_dir = parse_args(sys.argv[1:])

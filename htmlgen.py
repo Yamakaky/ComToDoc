@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 """Génère un fichier HTML à partir des objets Fonction"""
 

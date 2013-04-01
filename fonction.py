@@ -22,15 +22,12 @@ class Fonction:
         current = None
         
         for line in commentaires:
-
             if line[:8] == "FONCTION":
                 if current: # non None
                     liste_fonctions.append(current)
                 current = Fonction(nom=line[9:])
-
             elif line[:11] == "DESCRIPTION":
                 current.description = line[12:]
-
             elif line[:3] == "ARG":
                 liste = str.split(line[4:], " ", 1)
                 current.args[liste[0]] = liste[1]

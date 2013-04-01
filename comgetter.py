@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+
 import os.path
 import glob
 
@@ -12,7 +12,7 @@ def get_files(dir):
             liste += get_files(file)
         elif os.path.splitext(file)[-1] == ".dasm":
             liste.append(file)
-
+            
     assert len(liste) is not 0, "Le dossier ne contient pas de fichiers .dasm"
     return liste
 

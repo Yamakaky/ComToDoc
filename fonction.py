@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+
+import re
 
 class Fonction:
     """ Cette classe regroupe les commentaires d'une fonction en un
@@ -8,23 +9,27 @@ class Fonction:
     description
     args : tableau associatif 'registre : description'
     """
+
+    re_fonction
+    re_description
+    re_args = re.compile(
     
     def __init__(self, nom='', description='', args=None):
         """ args est un tableau associatif """
         self.nom = nom
         self.description = description
-        if not args:   # args vide
-            args = dict()
+        if not args:
+            args = {}
         self.args = args
 
     def match(commentaires):
-        liste_fonctions = list()
+        """commentaires est un itérateur de commentaires"""
         current = None
         
         for line in commentaires:
             if line[:8] == "FONCTION":
-                if current: # non None
-                    liste_fonctions.append(current)
+                if current:
+                    yield current
                 current = Fonction(nom=line[9:])
             elif line[:11] == "DESCRIPTION":
                 current.description = line[12:]
@@ -32,7 +37,5 @@ class Fonction:
                 liste = str.split(line[4:], " ", 1)
                 current.args[liste[0]] = liste[1]
 
-        if current: #not None
-            liste_fonctions.append(current)
-
-        return liste_fonctions
+        if current:
+            yield current

@@ -6,7 +6,7 @@ import xml.etree.cElementTree as ET
 from xml.etree.ElementTree import SubElement as sub_e
 import os
 
-def gen(liste_Fonction, file):
+def gen(gen_fonctions, file):
     """Prend en argument la liste des Fonction et génère le fichier html"""
     racine = ET.Element("html")
 
@@ -34,7 +34,7 @@ def gen(liste_Fonction, file):
 
 
     nav = sub_e(body, "nav")
-    for f in liste_Fonction:
+    for f in gen_fonctions():
         li = sub_e(nav, "li")
         a = sub_e(li, "a")
         a.set("href", "#" + f.nom)

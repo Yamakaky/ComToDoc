@@ -1,29 +1,25 @@
 #!/usr/bin/env python
 
 import os.path
+import re
 import glob
 
-def get_files(dir):
+re_dasm = re.compile(r'.dasm$')
+re_com = re.compile(r'^(;;; *)')
+
+def get_files(dir_name):
     """ Liste <dir> et renvoie la liste des .dasm qu'il contient (récursif) """
-    liste = list()    # contient la liste les fichiers .dasm
-
-    for file in glob.glob(dir + "/*"):
-        if os.path.isdir(file):
-            liste += get_files(file)
-        elif os.path.splitext(file)[-1] == ".dasm":
-            liste.append(file)
-            
-    assert len(liste) is not 0, "Le dossier ne contient pas de fichiers .dasm"
-    return liste
-
-def get_coms(file_list):
-    """ Retourne la liste des lignes utilisées pour la doc """
-    com_list = list()
     
-    for file in file_list:
-        for line in open(file, "r").read().splitlines(): # sans les \n
-            if len(line) > 3 and line[:3] == ";;;": 
-                com_list.append(line[3:])
+    for file_name in glob.glob(dir_name + "/*"):
+        if os.path.isdir(file_name):
+            for sub_file in get_files(file_name):
+                yield sub_file
+        elif re_dasm.match(file_name):
+            yield file_name
 
-    assert len(com_liste) is not 0, "Aucun commentaire détecté"
-    return com_list
+
+def get_coms(file_name):
+    """ Retourne la liste des lignes utilisées pour la doc """
+    for line in open(file_name, "r").read().splitlines():
+        if re_com.match(line): 
+            yield re_com.sub('', line)
